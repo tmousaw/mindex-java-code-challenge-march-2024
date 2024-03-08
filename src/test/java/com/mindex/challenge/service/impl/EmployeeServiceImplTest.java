@@ -3,7 +3,6 @@ package com.mindex.challenge.service.impl;
 import static com.mindex.challenge.utility.EmployeeBuilder.createTestEmployee;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import java.util.ArrayList;
 import java.util.List;
 import org.assertj.core.util.Lists;
 import org.junit.Before;
@@ -108,12 +107,13 @@ public class EmployeeServiceImplTest {
         assertEquals(4, reportingStructure.getNumberOfReports());
 
         // Now let's suppose we add a direct report for George Harrison who also has a direct report.
-        final Employee johnDoe = createEmployee("John", "Doe", new ArrayList<>());
+        final Employee johnDoe = createEmployee("John", "Doe", null);
         final Employee janeDoe = createEmployee("Jane", "Smith", Lists.newArrayList(new ReportId(johnDoe.getEmployeeId())));
         Employee georgeHarrison = readEmployee("c0c2293d-16bd-4603-8e08-638a9d18b22c");
         georgeHarrison.setDirectReports(Lists.newArrayList(new ReportId(janeDoe.getEmployeeId())));
         updateEmployee(georgeHarrison);
 
+        // Adding two reports underneath George Harrison should also add two to John Lennon.
         reportingStructure = restTemplate.getForEntity(reportingStructureUrl, ReportingStructure.class, johnLennon.getEmployeeId()).getBody();
         assertNotNull(reportingStructure);
         assertEmployeeEquivalence(johnLennon, reportingStructure.getEmployee());
