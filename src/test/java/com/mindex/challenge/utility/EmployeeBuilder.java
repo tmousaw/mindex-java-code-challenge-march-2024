@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import com.mindex.challenge.data.Employee;
-import com.mindex.challenge.data.ReportId;
 import lombok.Builder;
 import lombok.Value;
 
@@ -41,6 +40,6 @@ public class EmployeeBuilder {
     String department = "Engineering";
 
     @Builder.Default
-    List<ReportId> directReports = new ArrayList<>();
+    List<String> directReports = new ArrayList<>();
   }
 }

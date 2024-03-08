@@ -17,5 +17,5 @@ public class Employee {
 
     String department;
 
-    List<ReportId> directReports;
+    List<String> directReports;
 }
