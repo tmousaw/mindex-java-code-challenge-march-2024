@@ -8,7 +8,7 @@ Therefore, any update to a particular employee was actually creating another ent
 The `employee_database.json` had a list of objects that can be represented by the following schema:
     ```json
     { 
-      "type":"ReportID",
+      "type": "ReportEmployeeID",
       "properties": {
         "employeeId": {
           "type": "string"
@@ -19,3 +19,28 @@ The `employee_database.json` had a list of objects that can be represented by th
    The `Employee` class defined `directReports` as `List<Employee>`.
    The `README.md` file describes `directReports` as a list of strings.
    I chose to go with what is described in the `README.md` file because this makes most sense from a space perspective in the DB.
+1. The test file `EmployeeServiceImplTest` was misnamed.
+When you look at what it does, it is best described as an integration test which it's entry point through the EmployeeController.
+Therefore, I moved the test to one named `EmployeeControllerIT` and changed the package from `com.mindex.challenge.service.impl` to `com.mindex.challenge.controller`.
+
+## Dependencies Added
+I added Lombok compile and annotation processor dependencies for both build and test in order to make it easier to create data classes.
+I noticed that the gradle file uses Java 8.
+Had it been at least Java 14, I would have used records for my data classes.
+
+## Additional Endpoints
+The following endpoints were added:
+```text
+* Get Reporting Structure
+    * HTTP Method: GET
+    * URL: localhost:8080/employee/{id}/reporting
+    * RESPONSE: ReportingStructure
+* Create Compensation
+    * HTTP Method: POST
+    * URL: localhost:8080/compensation
+    * RESPONSE: Compensation
+* Get Compensation
+    * HTTP Method: GET
+    * URL: localhost:8080/compensation/{employeeId}
+    * RESPONSE: Compensation
+```

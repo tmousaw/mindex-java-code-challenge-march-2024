@@ -1,4 +1,4 @@
-package com.mindex.challenge.service.impl;
+package com.mindex.challenge.controller;
 
 import static com.mindex.challenge.utility.EmployeeBuilder.createTestEmployee;
 import static org.junit.Assert.assertEquals;
@@ -23,7 +23,7 @@ import com.mindex.challenge.utility.EmployeeBuilder.CreateTestEmployee;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class EmployeeServiceImplTest {
+public class EmployeeControllerIT {
 
     private String employeeUrl;
     private String employeeIdUrl;
