@@ -1,7 +1,7 @@
 # Solution to the Coding Challenge
 ## Bugs Found
 As I was implementing the solution, I noticed and fixed the following bugs:
-1. The `EmployeController` class logging said "Received employee create..." for `create()`, `read()`, and `update()`.
+1. The `EmployeeController` class logging said "Received employee create..." for `create()`, `read()`, and `update()`.
 1. The `Employee` class did not declare an ID.
 Therefore, any update to a particular employee was actually creating another entry in MongoDB which caused any query of that employee thereafter to fail with a `org.springframework.dao.IncorrectResultSizeDataAccessException`.
 1. There was a disconnect between the `employee_database.json` file used for bootstrapping, the definition of the `Employee` class, and the `README.md` file.

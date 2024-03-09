@@ -108,7 +108,7 @@ public class EmployeeControllerIT {
         // Now let's suppose we add a direct report for George Harrison who also has a direct report.
         final Employee johnDoe = createEmployee("John", "Doe", null);
         final Employee janeDoe = createEmployee("Jane", "Smith", Lists.newArrayList(johnDoe.getEmployeeId()));
-        Employee georgeHarrison = readEmployee("c0c2293d-16bd-4603-8e08-638a9d18b22c");
+        final Employee georgeHarrison = readEmployee("c0c2293d-16bd-4603-8e08-638a9d18b22c");
         georgeHarrison.setDirectReports(Lists.newArrayList(janeDoe.getEmployeeId()));
         updateEmployee(georgeHarrison);
 
