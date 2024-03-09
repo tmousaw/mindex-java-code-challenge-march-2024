@@ -39,7 +39,7 @@ public class EmployeeServiceImplTest {
     public void setup() {
         employeeUrl = "http://localhost:" + port + "/employee";
         employeeIdUrl = "http://localhost:" + port + "/employee/{id}";
-        reportingStructureUrl = employeeIdUrl + "/reporting-structure";
+        reportingStructureUrl = employeeIdUrl + "/reporting";
     }
 
     @Test
