@@ -58,6 +58,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ReportingStructure calculateReportingStructure(String id) {
+        LOG.debug("Counting direct reports for employee with ID [{}]", id);
+
         final Employee employee = findById(id);
 
         return new ReportingStructure(employee, countDirectReports(employee));
