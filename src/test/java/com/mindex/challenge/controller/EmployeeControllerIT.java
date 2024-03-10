@@ -49,7 +49,7 @@ public class EmployeeControllerIT {
         testEmployee.setPosition("Developer");
 
         // Create checks
-        Employee createdEmployee = restTemplate.postForEntity(employeeUrl, testEmployee, Employee.class).getBody();
+        Employee createdEmployee = createEmployee(testEmployee);
 
         assertNotNull(createdEmployee);
         assertNotNull(createdEmployee.getEmployeeId());
@@ -69,6 +69,10 @@ public class EmployeeControllerIT {
         Employee updatedEmployee = updateEmployee(readEmployee);
 
         assertEmployeeEquivalence(readEmployee, updatedEmployee);
+    }
+
+    private Employee createEmployee(Employee employee) {
+        return restTemplate.postForEntity(employeeUrl, employee, Employee.class).getBody();
     }
 
     private Employee readEmployee(String id) {
@@ -119,6 +123,6 @@ public class EmployeeControllerIT {
 
     private Employee createEmployee(String firstName, String lastName, List<String> directReports) {
         final Employee employee = createTestEmployee(CreateTestEmployee.builder().firstName(firstName).lastName(lastName).directReports(directReports).build());
-        return restTemplate.postForEntity(employeeUrl, employee, Employee.class).getBody();
+        return createEmployee(employee);
     }
 }
