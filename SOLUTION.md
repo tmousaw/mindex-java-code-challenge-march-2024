@@ -22,6 +22,7 @@ As I was implementing the solution, I noticed and fixed the following bugs:
    I chose to go with what is described in the `README.md` file because this makes most sense from a space perspective in the DB.
 
 ## Improvements Made to the Code
+1. Added `@RequestMapping(path = {"/employee"})` before class `EmployeeController` and removed the `/employee` part of the mappings thereafter.
 1. The test file `EmployeeServiceImplTest` was misnamed.
    When you look at what it does, it is best described as an integration test with its entry point through the EmployeeController.
    Therefore, I moved the test to one named `EmployeeControllerIT` and changed the package from `com.mindex.challenge.service.impl` to `com.mindex.challenge.controller`.
