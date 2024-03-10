@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class Compensation {
-
   String employeeId;
   BigDecimal salary;
   Date effectiveDate;
