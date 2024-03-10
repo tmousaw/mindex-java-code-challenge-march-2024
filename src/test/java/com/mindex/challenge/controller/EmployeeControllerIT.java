@@ -1,27 +1,25 @@
 package com.mindex.challenge.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static com.mindex.challenge.utility.EmployeeBuilder.createTestEmployee;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.mindex.challenge.data.Employee;
 import com.mindex.challenge.data.ReportingStructure;
+import com.mindex.challenge.utility.EmployeeBuilder.CreateTestEmployee;
 import java.util.List;
-import java.util.UUID;
 import org.assertj.core.util.Lists;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class EmployeeControllerIT {
 
@@ -35,7 +33,7 @@ public class EmployeeControllerIT {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @Before
+    @BeforeEach
     public void setup() {
         employeeUrl = "http://localhost:" + port + "/employee";
         employeeIdUrl = "http://localhost:" + port + "/employee/{id}";
@@ -51,7 +49,7 @@ public class EmployeeControllerIT {
         testEmployee.setPosition("Developer");
 
         // Create checks
-        Employee createdEmployee = createEmployee(testEmployee);
+        Employee createdEmployee = restTemplate.postForEntity(employeeUrl, testEmployee, Employee.class).getBody();
 
         assertNotNull(createdEmployee);
         assertNotNull(createdEmployee.getEmployeeId());
@@ -67,13 +65,10 @@ public class EmployeeControllerIT {
         // Update checks
         readEmployee.setPosition("Development Manager");
 
+
         Employee updatedEmployee = updateEmployee(readEmployee);
 
         assertEmployeeEquivalence(readEmployee, updatedEmployee);
-    }
-
-    private Employee createEmployee(Employee employee) {
-        return restTemplate.postForEntity(employeeUrl, employee, Employee.class).getBody();
     }
 
     private Employee readEmployee(String id) {
@@ -123,12 +118,7 @@ public class EmployeeControllerIT {
     }
 
     private Employee createEmployee(String firstName, String lastName, List<String> directReports) {
-        final Employee employee = new Employee();
-        employee.setEmployeeId(UUID.randomUUID().toString());
-        employee.setFirstName(firstName);
-        employee.setLastName(lastName);
-        employee.setDirectReports(directReports);
-
-        return createEmployee(employee);
+        final Employee employee = createTestEmployee(CreateTestEmployee.builder().firstName(firstName).lastName(lastName).directReports(directReports).build());
+        return restTemplate.postForEntity(employeeUrl, employee, Employee.class).getBody();
     }
 }

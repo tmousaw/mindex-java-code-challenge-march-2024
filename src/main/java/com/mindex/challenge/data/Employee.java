@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 public class Employee {
     @Id
-    private String employeeId;
-    private String firstName;
-    private String lastName;
-    private String position;
-    private String department;
-    private List<String> directReports;
+    String employeeId;
+    String firstName;
+    String lastName;
+    String position;
+    String department;
+    List<String> directReports;
 }

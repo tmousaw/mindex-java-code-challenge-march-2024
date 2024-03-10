@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.2.0.RELEASE'
+		springBootVersion = '2.7.13'
 	}
 	repositories {
 		mavenCentral()
@@ -26,10 +26,14 @@ repositories {
 dependencies {
 	implementation ('org.springframework.boot:spring-boot-starter-web')
 	implementation ('org.springframework.boot:spring-boot-starter-data-mongodb')
-	testImplementation ('org.springframework.boot:spring-boot-starter-test')
-	implementation (group: 'de.bwaldvogel', name: 'mongo-java-server', version: '1.25.0')
 	compileOnly ('org.projectlombok:lombok:1.18.30')
 	annotationProcessor ('org.projectlombok:lombok:1.18.8')
+	testImplementation ('org.springframework.boot:spring-boot-starter-test')
 	testCompileOnly ('org.projectlombok:lombok:1.18.30')
 	testAnnotationProcessor ('org.projectlombok:lombok:1.18.8')
+	implementation (group: 'de.bwaldvogel', name: 'mongo-java-server', version: '1.25.0')
+}
+
+test {
+	useJUnitPlatform()
 }

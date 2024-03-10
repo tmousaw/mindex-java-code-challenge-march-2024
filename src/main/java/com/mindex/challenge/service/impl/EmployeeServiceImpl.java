@@ -1,22 +1,26 @@
 package com.mindex.challenge.service.impl;
 
-import com.mindex.challenge.dao.EmployeeRepository;
-import com.mindex.challenge.data.Employee;
-import com.mindex.challenge.data.ReportingStructure;
-import com.mindex.challenge.service.EmployeeService;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.UUID;
+import com.mindex.challenge.dao.EmployeeRepository;
+import com.mindex.challenge.data.Employee;
+import com.mindex.challenge.data.ReportingStructure;
+import com.mindex.challenge.service.EmployeeService;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     private static final Logger LOG = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 
+    private final EmployeeRepository employeeRepository;
+
     @Autowired
-    private EmployeeRepository employeeRepository;
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 
     @Override
     public Employee create(Employee employee) {
@@ -54,8 +58,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ReportingStructure calculateReportingStructure(String id) {
-        LOG.debug("Counting direct reports for employee with ID [{}]", id);
-
         final Employee employee = findById(id);
 
         return new ReportingStructure(employee, countDirectReports(employee));
