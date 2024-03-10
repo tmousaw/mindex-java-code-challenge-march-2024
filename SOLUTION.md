@@ -26,7 +26,7 @@ As I was implementing the solution, I noticed and fixed the following bugs:
 1. The test file `EmployeeServiceImplTest` was misnamed.
    When you look at what it does, it is best described as an integration test with its entry point through the EmployeeController.
    Therefore, I moved the test to one named `EmployeeControllerIT` and changed the package from `com.mindex.challenge.service.impl` to `com.mindex.challenge.controller`.
-1. Added Lombok and rewrote `Employee` to use it. This reduces the amount of code that needs to be written.
+1. Added Lombok and rewrote `Employee` to use it. This reduces the amount of code that needs to be written and maintained.
 
 ## Dependencies Added
 I added Lombok compile and annotation processor dependencies for both build and test in order to make it easier to create data classes.
