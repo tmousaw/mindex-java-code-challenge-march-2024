@@ -2,6 +2,7 @@ package com.mindex.challenge.service.impl;
 
 import com.mindex.challenge.dao.EmployeeRepository;
 import com.mindex.challenge.data.Employee;
+import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +30,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee read(String id) {
-        LOG.debug("Creating employee with id [{}]", id);
+        LOG.debug("Reading employee with id [{}]", id);
 
+        return findById(id);
+    }
+
+    private Employee findById(String id) {
         Employee employee = employeeRepository.findByEmployeeId(id);
 
         if (employee == null) {
-            throw new RuntimeException("Invalid employeeId: " + id);
+            throw new EmployeeNotFoundException("Invalid employeeId: " + id);
         }
 
         return employee;
@@ -45,5 +50,25 @@ public class EmployeeServiceImpl implements EmployeeService {
         LOG.debug("Updating employee [{}]", employee);
 
         return employeeRepository.save(employee);
+    }
+
+    @Override
+    public ReportingStructure calculateReportingStructure(String id) {
+        LOG.debug("Counting direct reports for employee with ID [{}]", id);
+
+        final Employee employee = findById(id);
+
+        return new ReportingStructure(employee, countDirectReports(employee));
+    }
+
+    private Integer countDirectReports(Employee employee) {
+        return (employee.getDirectReports() != null) ? employee.getDirectReports().size() + employee.getDirectReports().stream()
+            .mapToInt(employeeId -> countDirectReports(employeeRepository.findByEmployeeId(employeeId))).sum() : 0;
+    }
+
+    public static class EmployeeNotFoundException extends RuntimeException {
+        public EmployeeNotFoundException(String message) {
+            super(message);
+        }
     }
 }
