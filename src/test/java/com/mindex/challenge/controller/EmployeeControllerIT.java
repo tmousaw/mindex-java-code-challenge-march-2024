@@ -65,7 +65,6 @@ public class EmployeeControllerIT {
         // Update checks
         readEmployee.setPosition("Development Manager");
 
-
         Employee updatedEmployee = updateEmployee(readEmployee);
 
         assertEmployeeEquivalence(readEmployee, updatedEmployee);
