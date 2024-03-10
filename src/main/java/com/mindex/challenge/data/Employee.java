@@ -8,14 +8,9 @@ import lombok.Data;
 public class Employee {
     @Id
     String employeeId;
-
     String firstName;
-
     String lastName;
-
     String position;
-
     String department;
-
     List<String> directReports;
 }

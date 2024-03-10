@@ -4,8 +4,6 @@ import lombok.Value;
 
 @Value
 public class ReportingStructure {
-
   Employee employee;
-
   int numberOfReports;
 }

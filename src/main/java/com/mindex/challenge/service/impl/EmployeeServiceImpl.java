@@ -65,7 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private Integer countDirectReports(Employee employee) {
         return (employee.getDirectReports() != null) ? employee.getDirectReports().size() + employee.getDirectReports().stream()
-            .mapToInt(employeeId -> countDirectReports(employeeRepository.findByEmployeeId(employeeId))).sum() : 0;
+            .mapToInt(employeeId -> countDirectReports(findById(employeeId))).sum() : 0;
     }
 
     public static class EmployeeNotFoundException extends RuntimeException {
